@@ -131,7 +131,7 @@ class ToTensor(object):
 		tmpImg = tmpImg.transpose((2, 0, 1))
 		tmpLbl = label.transpose((2, 0, 1))
 
-		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg), 'label': torch.from_numpy(tmpLbl)}
+		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg.copy()), 'label': torch.from_numpy(tmpLbl.copy())}
 
 class ToTensorLab(object):
 	"""Convert ndarrays in sample to Tensors."""
@@ -218,7 +218,7 @@ class ToTensorLab(object):
 		tmpImg = tmpImg.transpose((2, 0, 1))
 		tmpLbl = label.transpose((2, 0, 1))
 
-		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg), 'label': torch.from_numpy(tmpLbl)}
+		return {'imidx':torch.from_numpy(imidx), 'image': torch.from_numpy(tmpImg.copy()), 'label': torch.from_numpy(tmpLbl.copy())}
 
 class SalObjDataset(Dataset):
 	def __init__(self,img_name_list,lbl_name_list,transform=None):
@@ -258,7 +258,7 @@ class SalObjDataset(Dataset):
 			image = image[:,:,np.newaxis]
 			label = label[:,:,np.newaxis]
 
-		sample = {'imidx':imidx, 'image':image, 'label':label}
+		sample = {'imidx': imidx, 'image': image, 'label': label}
 
 		if self.transform:
 			sample = self.transform(sample)
